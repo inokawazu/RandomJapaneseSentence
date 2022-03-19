@@ -1,0 +1,4 @@
+name = "RandomJapaneseSentence"
+uuid = "bd350fca-59ae-4c58-acd6-653209881553"
+authors = ["Markus-Amano <markus.a.amano@gmail.com>"]
+version = "0.1.0"
