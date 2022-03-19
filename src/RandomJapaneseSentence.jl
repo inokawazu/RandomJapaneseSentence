@@ -91,21 +91,31 @@ export jap_eng_quiz
 function jap_eng_quiz()
     enjp = get_japanese_english_pair_table()
     stop = false
+
+    println("Welcome to the Japanese to English Translation Quiz!")
+    println("You will be propted to translate a Japanese sentence \
+            into English.")
+    println("(Press 'Enter' to reveal and continue)")
+
+    total = 0
     while !stop
         row = rand(1:nrow(enjp))
         en = enjp[row, "english"]
         jp = enjp[row, "japanese"]
-        
-        println("Translate from English to Japanese:")
-        println("(Press 'Enter' to reveal)")
+
         println()
         print(jp)
         readline()
         println(en)
         println()
+
+        total +=1
+        println("You haved done $total tranlations so far.")
         print("Would you like to continue? [y]/n: ")
         response = readline()
-        stop = any(==(response), ["no","n"])
+        if any(contains.(response, Ref(r"[N|n]o?")))
+            stop = true
+        end
     end
 end
 
