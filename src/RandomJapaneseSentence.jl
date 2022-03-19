@@ -1,6 +1,10 @@
 module RandomJapaneseSentence
 
-# TODO: parse sentences to table
+export get_japanese_english_pair_table,
+       japanese,
+       english
+
+using DataFrames
 
 """
 to_data_dir makes a valid path to data file
@@ -73,6 +77,14 @@ function parse_lines(tp::TanakaParser, lines::Lines)
     return parsed
 end
 
-
+function get_japanese_english_pair_table()
+    pairs = vcat(
+                 get_sentences(TanakaParser(),   TANAKA_C_FILE),
+                 get_sentences(TatoebaParser(),  TATOEBA_FILE)
+                )
+    col_names = ["english", "japanese"]
+    cols = [english.(pairs), japanese.(pairs)]
+    return DataFrame(cols, col_names)
+end
 
 end # module
