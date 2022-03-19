@@ -45,7 +45,7 @@ end
 function parse_lines(tp::TatoebaParser, lines::Lines)
     parsed = TatoebaPair{eltype(lines)}[]
     for line in lines
-        en_id, en, jp_id, jp = string.(split(line, '\t'))
+        jp_id, jp, en_id, en = string.(split(line, '\t'))
         push!(parsed, TatoebaPair(en,jp,
                                  parse(Int64,filter(isdigit,en_id)), 
                                  parse(Int64,filter(isdigit,jp_id))
