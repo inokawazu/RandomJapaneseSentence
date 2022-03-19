@@ -22,12 +22,14 @@ function get_sentences(expa::ExampleParser, file::AbstractString)
     @assert isfile(file) "$file should be a file"
 
     lines = readlines(file)
-    # filter_lines!(lines, expa)
-    # parsed = parse_line.(Ref(expa), lines)
     return parse_lines(expa, lines)
 end
 
 abstract type SentencePair end
+
+japanese(sp::SentencePair) = sp.japanese
+english(sp::SentencePair) = sp.english
+
 struct TatoebaPair{T<:AbstractString} <: SentencePair 
     english::T
     japanese::T
@@ -41,6 +43,8 @@ struct TanakaPair{T<:AbstractString} <: SentencePair
     japanese_b::T
     id::Int64
 end
+
+japanese(tp::TanakaPair) = tp.japanese_a
 
 function parse_lines(tp::TatoebaParser, lines::Lines)
     parsed = TatoebaPair{eltype(lines)}[]
